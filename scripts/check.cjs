@@ -1,0 +1,36 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const root = path.resolve(__dirname, '..');
+const E = require('../engine.js');
+const files = fs.readdirSync(path.join(root, 'quizzes')).filter(f => f.endsWith('.json')).sort();
+const quizzes = files.map(f => JSON.parse(fs.readFileSync(path.join(root, 'quizzes', f), 'utf8')));
+for (const q of quizzes) {
+  E.validate(q);
+  const answers = {};
+  q.questions.forEach((x, i) => x.parts.forEach((p, j) => { answers[`${i}-${j}`] = p.answer; }));
+  assert.deepEqual(E.grade(q, answers).sections, [25, 25]);
+  assert.equal(E.grade(q, {}).total, 0);
+  const one = q.questions[0].parts[0];
+  answers['0-0'] = 'wrong answer';
+  assert.equal(E.grade(q, answers).total, 50 - one.marks);
+  const malformed = structuredClone(q); malformed.questions[0].parts[0].marks++;
+  assert.throws(() => E.validate(malformed), /25 marks/);
+}
+assert.equal(E.correct('0x000000af', {kind:'hex',answer:'0x000000AF'}), true);
+assert.equal(E.correct('AF', {kind:'hex',answer:'0x000000AF'}), false);
+assert.equal(E.correct('mov r0,r1', {kind:'asm',answer:'mov r0, r1'}), true);
+assert.equal(E.correct('MOV r0, r1', {kind:'asm',answer:'mov r0, r1'}), false);
+assert.equal(E.correct("BC'+A'B", {kind:'boolean',answer:"A'B+BC'"}), true);
+assert.equal(E.correct("A'B + BC'", {kind:'boolean',answer:"A'B+BC'"}), false);
+assert.equal(E.elapsed({startedAt:1000,timed:true,deadline:3601000},7201000),3600000);
+assert.equal(E.elapsed({startedAt:1000,timed:true,deadline:3601000,finishedAt:91000}),90000);
+assert.equal(E.duration(90000),'1:30');
+const context = {window:{}};
+vm.runInNewContext(fs.readFileSync(path.join(root,'quizzes.js'),'utf8'),context);
+assert.equal(JSON.stringify(context.window.BUNDLED_QUIZZES),JSON.stringify(quizzes));
+vm.runInNewContext(fs.readFileSync(path.join(root,'prompt.js'),'utf8'),context);
+assert.equal(context.window.GENERATION_PROMPT,fs.readFileSync(path.join(root,'NEW_MOCK_PROMPT.md'),'utf8'));
+for (const name of ['app.js','engine.js','quizzes.js','prompt.js']) new vm.Script(fs.readFileSync(path.join(root,name),'utf8'));
+console.log(`${quizzes.length} mocks verified: schema, 50/50 keys, blank/wrong marking, formatting, timing, generated bundles and JavaScript syntax.`);

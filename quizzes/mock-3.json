@@ -1,0 +1,560 @@
+{
+  "id": "mock-3",
+  "title": "Mock 3",
+  "description": "Wider signed conversions, byte stores, loops and byte counting.",
+  "questions": [
+    {
+      "title": "Architecture and numeric representation",
+      "prompt": "Select one answer per part.",
+      "parts": [
+        {
+          "label": "A modified Harvard design typically combines…",
+          "answer": "separate instruction/data caches with unified main memory",
+          "marks": 1,
+          "options": [
+            "one register for every memory address",
+            "separate instruction/data caches with unified main memory",
+            "separate instruction/data main memories with no shared memory"
+          ],
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Which decimal fraction has a finite binary expansion?",
+          "answer": "0.625",
+          "marks": 1,
+          "options": [
+            "0.1",
+            "0.2",
+            "0.625",
+            "0.3"
+          ],
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "Modified Harvard commonly separates instruction/data caches while sharing main memory. 0.625=5/8=.101₂ terminates because its reduced denominator is a power of two."
+    },
+    {
+      "title": "Unsigned integers",
+      "prompt": "Follow each answer format exactly.",
+      "parts": [
+        {
+          "label": "Convert decimal 346 to exactly 12 binary digits.",
+          "answer": "000101011010",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Convert binary 1110100110 to hexadecimal, without a prefix or leading zeros.",
+          "answer": "3A6",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        },
+        {
+          "label": "Convert hexadecimal 5D2 to decimal.",
+          "answer": "1490",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "346=256+64+16+8+2 gives 101011010, padded to 12 bits as 000101011010. Group 0011 1010 0110 to obtain 3A6. 5D2=5×256+13×16+2=1490."
+    },
+    {
+      "title": "Two’s complement at different widths",
+      "prompt": "Use the width stated in each part.",
+      "parts": [
+        {
+          "label": "Encode decimal −46 as exactly 8 binary digits.",
+          "answer": "11010010",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Decode 12-bit hexadecimal F9C as a signed decimal integer.",
+          "answer": "-100",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Encode decimal −300 in 16-bit two’s complement: exactly 4 hex digits, no prefix.",
+          "answer": "FED4",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        }
+      ],
+      "why": "256−46=210=D2=11010010. F9C is unsigned 3996; subtract 4096 to get −100. 65536−300=65236=FED4."
+    },
+    {
+      "title": "An unsigned binary fraction",
+      "prompt": "Convert decimal 12.84375 to unsigned binary. Use no prefix or leading zeros and exactly 5 fractional bits.",
+      "parts": [
+        {
+          "label": "Binary value",
+          "answer": "1100.11011",
+          "marks": 2,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "12=1100₂; .84375=1/2+1/4+1/16+1/32=.11011₂. Thus 1100.11011."
+    },
+    {
+      "title": "Encode a negative fraction",
+      "prompt": "Encode decimal −0.4375 as IEEE 754 binary32.",
+      "parts": [
+        {
+          "label": "Sign bit",
+          "answer": "1",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Stored exponent: exactly 8 binary digits",
+          "answer": "01111101",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Full representation: 0x followed by exactly 8 hex digits",
+          "answer": "0xBEE00000",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        }
+      ],
+      "why": "0.4375=.0111₂=1.11₂×2⁻². Sign=1, stored exponent=125=01111101 and fraction=11000000000000000000000. Combined fields give BEE00000."
+    },
+    {
+      "title": "Decode a positive float",
+      "prompt": "Decode the normal IEEE 754 binary32 representation 0x42160000.",
+      "parts": [
+        {
+          "label": "Sign bit",
+          "answer": "0",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Actual (unbiased) exponent in decimal",
+          "answer": "5",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Represented value in decimal",
+          "answer": "37.5",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "The fields are 0 | 10000100 | 00101100000000000000000. Exponent 132−127=5, significand 1.001011₂. Scaling yields 100101.1₂=37.5."
+    },
+    {
+      "title": "Boolean identities",
+      "prompt": "A prime means NOT; + means OR; juxtaposition means AND. Identify the valid identity in each part.",
+      "parts": [
+        {
+          "label": "Distributivity of OR over AND",
+          "answer": "A+BC=(A+B)(A+C)",
+          "marks": 1,
+          "options": [
+            "A+BC=AB+AC",
+            "A+BC=(A+B)(A+C)",
+            "A+BC=(A+B)C"
+          ],
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Double negation",
+          "answer": "(A')'=A",
+          "marks": 1,
+          "options": [
+            "(A')'=A",
+            "(A')'=1",
+            "(A')'=A'"
+          ],
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Identity for OR",
+          "answer": "A+0=A",
+          "marks": 1,
+          "options": [
+            "A+0=0",
+            "A+0=1",
+            "A+0=A"
+          ],
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "OR distributes over AND in Boolean algebra. Complementing twice restores A. Zero is the identity element for OR."
+    },
+    {
+      "title": "Three-variable K-map",
+      "prompt": "Find a minimal sum of products. Columns BC use Gray-code order. Use ASCII primes, no spaces or AND dots, and alphabetical variables within each term.<table><caption>Output F</caption><tr><th>A / BC</th><th>00</th><th>01</th><th>11</th><th>10</th></tr><tr><th>0</th><td>0</td><td>0</td><td>1</td><td>1</td></tr><tr><th>1</th><td>0</td><td>0</td><td>0</td><td>1</td></tr></table>",
+      "parts": [
+        {
+          "label": "Minimal expression",
+          "answer": "A'B+BC'",
+          "marks": 3,
+          "options": null,
+          "kind": "boolean",
+          "accept": []
+        }
+      ],
+      "why": "Row A=0, columns 11 and 10 give A'B. Column 10 in both rows gives BC'. Both pairs are needed to cover the two outer 1s; they overlap at A=0, BC=10."
+    },
+    {
+      "title": "Four-variable K-map",
+      "prompt": "Find a minimal sum of products. Both axes use Gray-code order. Use ASCII primes, no spaces or AND dots, and alphabetical variables within each term.<table><caption>Output F</caption><tr><th>AB / CD</th><th>00</th><th>01</th><th>11</th><th>10</th></tr><tr><th>00</th><td>0</td><td>0</td><td>1</td><td>1</td></tr><tr><th>01</th><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr><th>11</th><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr><th>10</th><td>0</td><td>0</td><td>0</td><td>0</td></tr></table>",
+      "parts": [
+        {
+          "label": "Minimal expression",
+          "answer": "A'C+BD",
+          "marks": 3,
+          "options": null,
+          "kind": "boolean",
+          "accept": []
+        }
+      ],
+      "why": "Rows 00 and 01, columns 11 and 10 form the group A'C. Rows 01 and 11, columns 01 and 11 form the group BD. These two overlapping groups cover every 1."
+    },
+    {
+      "title": "ARM storage and flags",
+      "prompt": "Assume ARMv7 A32, 32-bit registers and four-byte words throughout this section.",
+      "parts": [
+        {
+          "label": "Which register does str r5, [r6, #4] overwrite?",
+          "answer": "neither r5 nor r6",
+          "marks": 1,
+          "options": [
+            "neither r5 nor r6",
+            "r6 only",
+            "r5 only",
+            "both r5 and r6"
+          ],
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "After cmp r1, r2, beq tests…",
+          "answer": "Z=1",
+          "marks": 1,
+          "options": [
+            "C=0",
+            "all flags equal zero",
+            "N=1",
+            "Z=1"
+          ],
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "The offset str writes memory at r6+4 and leaves both registers unchanged. beq depends only on the zero flag being set."
+    },
+    {
+      "title": "Place four bytes",
+      "prompt": "Store the 32-bit word 0xD42A70B9 starting at address 0x0080. Memory is byte-addressable. Drag a chip or choose from the dropdown. The endian cases are independent; options may be reused.",
+      "parts": [
+        {
+          "label": "Little endian: byte at 0x0081",
+          "answer": "0x70",
+          "marks": 1,
+          "options": [
+            "0xD4",
+            "0x2A",
+            "0x70",
+            "0xB9"
+          ],
+          "kind": "drop",
+          "accept": []
+        },
+        {
+          "label": "Little endian: byte at 0x0083",
+          "answer": "0xD4",
+          "marks": 1,
+          "options": [
+            "0xD4",
+            "0x2A",
+            "0x70",
+            "0xB9"
+          ],
+          "kind": "drop",
+          "accept": []
+        },
+        {
+          "label": "Big endian: byte at 0x0082",
+          "answer": "0x70",
+          "marks": 1,
+          "options": [
+            "0xD4",
+            "0x2A",
+            "0x70",
+            "0xB9"
+          ],
+          "kind": "drop",
+          "accept": []
+        }
+      ],
+      "why": "Little-endian ascending bytes are B9 70 2A D4. Big-endian ascending bytes are D4 2A 70 B9. Endianness changes byte placement, not bits within each byte."
+    },
+    {
+      "title": "Sequential bitwise trace",
+      "prompt": "<pre>mov r0, #0x69\nmov r1, #0x3c\neor r2, r0, r1\norr r3, r2, #0x80\nand r4, r3, #0x5f</pre>Enter 0x followed by exactly 8 hex digits. Later instructions use the earlier results.",
+      "parts": [
+        {
+          "label": "r2",
+          "answer": "0x00000055",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        },
+        {
+          "label": "r3",
+          "answer": "0x000000D5",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        },
+        {
+          "label": "r4",
+          "answer": "0x00000055",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        }
+      ],
+      "why": "69 XOR 3C=55. OR with 80 sets the top bit of the low byte, giving D5. D5 AND 5F=55. Upper 24 bits are zero throughout."
+    },
+    {
+      "title": "One-line C translations",
+      "prompt": "Variables map to the registers of the same name. Write one lowercase ARM instruction per part. Use explicit three-operand arithmetic.",
+      "parts": [
+        {
+          "label": "r2 = r3 + r4;",
+          "answer": "add r2, r3, r4",
+          "marks": 1,
+          "options": null,
+          "kind": "asm",
+          "accept": [
+            "add r2, r4, r3"
+          ]
+        },
+        {
+          "label": "r5 = r6 & 15;",
+          "answer": "and r5, r6, #15",
+          "marks": 1,
+          "options": null,
+          "kind": "asm",
+          "accept": [
+            "and r5, r6, #0xf"
+          ]
+        },
+        {
+          "label": "r7 = r8 << 4; (unsigned r8)",
+          "answer": "lsl r7, r8, #4",
+          "marks": 1,
+          "options": null,
+          "kind": "asm",
+          "accept": [
+            "mov r7, r8, lsl #4"
+          ]
+        }
+      ],
+      "why": "Use add for addition, and with immediate #15 to retain the lowest four bits, and lsl #4 to shift left four positions. The stored shift result is limited to 32 bits."
+    },
+    {
+      "title": "Complete a while loop",
+      "prompt": "Complete the assembly to match this signed C code. Each option may be used once. No arithmetic overflow occurs.\n<pre>r0 = 0;\nr1 = 2;\nwhile (r1 &lt; 10) {\n    r0 = r0 + r1;\n    r1 = r1 + 2;\n}</pre>\n<pre>mov r0, #0\nmov r1, #2\nloop_test:\ncmp r1, #10\n[blank 1]\nadd r0, r0, r1\n[blank 2]\n[blank 3]\nfinish:</pre>",
+      "parts": [
+        {
+          "label": "Blank 1",
+          "answer": "bge finish",
+          "marks": 1,
+          "options": [
+            "bgt finish",
+            "bge finish",
+            "add r1, r1, #1",
+            "add r1, r1, #2",
+            "b loop_test",
+            "b finish"
+          ],
+          "kind": "drop",
+          "accept": []
+        },
+        {
+          "label": "Blank 2",
+          "answer": "add r1, r1, #2",
+          "marks": 1,
+          "options": [
+            "bgt finish",
+            "bge finish",
+            "add r1, r1, #1",
+            "add r1, r1, #2",
+            "b loop_test",
+            "b finish"
+          ],
+          "kind": "drop",
+          "accept": []
+        },
+        {
+          "label": "Blank 3",
+          "answer": "b loop_test",
+          "marks": 1,
+          "options": [
+            "bgt finish",
+            "bge finish",
+            "add r1, r1, #1",
+            "add r1, r1, #2",
+            "b loop_test",
+            "b finish"
+          ],
+          "kind": "drop",
+          "accept": []
+        }
+      ],
+      "why": "Exit when r1≥10, so use bge. Increment by 2 and return to the test. The executed values are 2,4,6,8, giving final r0=20 and r1=10."
+    },
+    {
+      "title": "Trace a comparison result",
+      "prompt": "Treat r1 and r2 as signed 32-bit integers. Execution ends at done.\n<pre>mov r0, #0\ncmp r1, r2\nbeq done\nmov r0, #1\nbgt done\nmov r0, #2\ndone:</pre>",
+      "parts": [
+        {
+          "label": "Final r0 when r1=−5 and r2=−8 (decimal)",
+          "answer": "1",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Final r0 when r1=4 and r2=9 (decimal)",
+          "answer": "2",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Purpose",
+          "answer": "encode equal as 0, greater as 1, less as 2",
+          "marks": 1,
+          "options": [
+            "calculate r1 minus r2",
+            "encode equal as 0, greater as 1, less as 2",
+            "select the signed maximum",
+            "encode equal as 0, greater as 2, less as 1"
+          ],
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "Equal inputs branch with r0=0. Unequal inputs set r0=1. bgt retains that for r1>r2; otherwise r0 becomes 2. The mov instructions do not update flags, so bgt still uses cmp."
+    },
+    {
+      "title": "Store a byte, then reload",
+      "prompt": "Assume little endian, four-byte words and aligned data. Enter each result as 0x plus exactly 8 hex digits.\n<pre>.data\n.balign 4\nitem: .word 0x11223344\n.text\nldr r0, =item\nmov r1, #0xaa\nstrb r1, [r0, #2]\nldr r2, [r0]\nldrsb r3, [r0, #2]</pre>",
+      "parts": [
+        {
+          "label": "r2",
+          "answer": "0x11AA3344",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        },
+        {
+          "label": "r3",
+          "answer": "0xFFFFFFAA",
+          "marks": 1,
+          "options": null,
+          "kind": "hex",
+          "accept": []
+        }
+      ],
+      "why": "Original ascending bytes are 44 33 22 11. strb replaces just offset 2: 44 33 AA 11. The word becomes 11AA3344. Loading AA as a signed byte sign-extends its top bit to give FFFFFFAA (−86)."
+    },
+    {
+      "title": "Match conditional arithmetic",
+      "prompt": "Choose the signed C block with the same behaviour. No arithmetic overflow occurs. Execution ends at done.\n<pre>cmp r2, r3\nblt smaller\nsub r0, r2, r3\nb done\nsmaller:\nadd r0, r2, r3\ndone:</pre>",
+      "parts": [
+        {
+          "label": "Equivalent C",
+          "answer": "if (r2 < r3) r0 = r2 + r3; else r0 = r2 - r3;",
+          "marks": 2,
+          "options": [
+            "if (r2 <= r3) r0 = r2 + r3; else r0 = r2 - r3;",
+            "r0 = r3 - r2;",
+            "if (r2 > r3) r0 = r2 + r3; else r0 = r2 - r3;",
+            "if (r2 < r3) r0 = r2 + r3; else r0 = r2 - r3;"
+          ],
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "blt chooses addition only for signed r2<r3. Equality follows the subtraction path, which distinguishes < from <= in the options."
+    },
+    {
+      "title": "Complete a byte-counting program",
+      "prompt": "The program counts nonzero bytes in the four-byte array. Complete the missing instruction so it matches the C test shown. Type one lowercase instruction. Execution ends at done.\n<pre>// for each of the four bytes:\n// if (bytes[i] == 0) skip incrementing the count;</pre>\n<pre>.data\nbytes: .byte 0, 5, 0, 9\n.text\nldr r4, =bytes\nmov r0, #0\nmov r1, #0\nloop:\nldrb r2, [r4, r1]\ncmp r2, #0\n[missing instruction]\nadd r0, r0, #1\nskip:\nadd r1, r1, #1\ncmp r1, #4\nbne loop\ndone:</pre>",
+      "parts": [
+        {
+          "label": "Missing instruction",
+          "answer": "beq skip",
+          "marks": 2,
+          "options": null,
+          "kind": "asm",
+          "accept": []
+        },
+        {
+          "label": "Final count r0 (decimal)",
+          "answer": "2",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        },
+        {
+          "label": "Final index r1 (decimal)",
+          "answer": "4",
+          "marks": 1,
+          "options": null,
+          "kind": "text",
+          "accept": []
+        }
+      ],
+      "why": "beq skip bypasses the count increment for a zero byte. Only 5 and 9 increment r0, giving 2. The index increment occurs on both paths, and the loop stops at r1=4. Byte-array indexing needs no ×4 scaling."
+    }
+  ]
+}
